@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+</head>
+<body>
+
+<h2>Movie List</h2>
+
+<form method="get">
+    Genre:
+    <select name="genre">
+        <option value="">All</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+    </select>
+
+    Language:
+    <select name="language">
+        <option value="">All</option>
+        <option value="English">English</option>
+        <option value="Hindi">Hindi</option>
+        <option value="Tamil">Tamil</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+<hr>
+
+{% for movie in movies %}
+    <h3>{{ movie.title }}</h3>
+    <p>{{ movie.genre }} | {{ movie.language }}</p>
+    <img src="{{ movie.poster.url }}" width="150">
+    <br><br>
+
+    <form action="{% url 'book_ticket' movie.id %}" method="post">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter email" required>
+        <button type="submit">Book Ticket</button>
+    </form>
+
+    <hr>
+{% endfor %}
+
+</body>
+</html>
