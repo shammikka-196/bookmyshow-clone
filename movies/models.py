@@ -1,21 +1,11 @@
 from django.db import models
 
 class Movie(models.Model):
-    GENRE_CHOICES = [
-        ('Action', 'Action'),
-        ('Drama', 'Drama'),
-        ('Comedy', 'Comedy'),
-    ]
-
-    LANGUAGE_CHOICES = [
-        ('English', 'English'),
-        ('Hindi', 'Hindi'),
-        ('Telugu', 'Telugu'),
-    ]
-
-    name = models.CharField(max_length=100)
-    genre = models.CharField(max_length=20, choices=GENRE_CHOICES)
-    language = models.CharField(max_length=20, choices=LANGUAGE_CHOICES)
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True, default="")
+    duration = models.IntegerField()
+    release_date = models.DateField()
+    trailer_url = models.URLField(blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title

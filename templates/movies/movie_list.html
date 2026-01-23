@@ -1,56 +1,26 @@
-{% extends "users/basic.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+</head>
+<body>
 
-{% block content %}
-<div class="container py-5">
-    <h1 class="text-center mb-5">Movies</h1>
+<h1>Movie List</h1>
 
-    <div class="row justify-content-center mb-5">
-        <div class="col-md-8">
-            <form method="GET" action="{% url 'movie_list' %}">
-                <div class="input-group">
-                    <input
-                        class="form-control form-control-lg"
-                        name="search"
-                        placeholder="Search for movies"
-                        type="text"
-                        value="{{ request.GET.search|default_if_none:'' }}"
-                    />
-                    <div class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            Search
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
+{% for movie in movies %}
+    <div>
+        <h3>
+            <a href="{% url 'movie_detail' movie.id %}">
+                {{ movie.title }}
+            </a>
+        </h3>
+        <p>{{ movie.description|truncatewords:15 }}</p>
     </div>
+{% empty %}
+    <p>No movies found</p>
+{% endfor %}
 
-    <div class="row" id="movieList">
-        {% for movie in movies %}
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <img src="{{ movie.image.url }}" class="card-img-top"
-                     style="height:300px; object-fit:cover;">
+<a href="{% url 'add_movie' %}">Add Movie</a>
 
-                <div class="card-body">
-                    <h5 class="card-title">{{ movie.name }}</h5>
-                    <p>⭐ {{ movie.rating }}</p>
-                    <p>Cast: {{ movie.cast }}</p>
-                </div>
-
-                <div class="card-footer bg-white">
-                    <a href="{% url 'theater_list' movie.id %}"
-                       class="btn btn-outline-primary btn-block">
-                        View Theaters
-                    </a>
-                </div>
-            </div>
-        </div>
-        {% empty %}
-        <div class="col-12 text-center">
-            <p>No movies found</p>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-{% endblock %}
+</body>
+</html>

@@ -1,9 +1,24 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ movie.title }}</title>
+</head>
+<body>
 
-{% block content %}
-<h2>{{ movie.title }}</h2>
+<h1>{{ movie.title }}</h1>
 
 <p>{{ movie.description }}</p>
 
-<a href="{% url 'movies:home' %}">Back to Movies</a>
-{% endblock %}
+{% if movie.trailer_url %}
+    <iframe width="560" height="315"
+        src="{{ movie.trailer_url }}"
+        frameborder="0"
+        allowfullscreen>
+    </iframe>
+{% endif %}
+
+<br><br>
+<a href="{% url 'movie_list' %}">Back</a>
+
+</body>
+</html>

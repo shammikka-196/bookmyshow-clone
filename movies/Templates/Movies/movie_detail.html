@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ movie.title }}</title>
+    <title>{{ movie.name }}</title>
 </head>
 <body>
 
-<h1>{{ movie.title }}</h1>
-<img src="{{ movie.poster.url }}" width="200">
-<p>{{ movie.description }}</p>
+<h1>{{ movie.name }}</h1>
+<p><strong>Genre:</strong> {{ movie.genre }}</p>
+<p><strong>Language:</strong> {{ movie.language }}</p>
+<p><strong>Description:</strong> {{ movie.description }}</p>
+<p><strong>Duration:</strong> {{ movie.duration }}</p>
+<p><strong>Release Date:</strong> {{ movie.release_date }}</p>
 
+{% if movie.trailer_url %}
+    <h2>Trailer</h2>
+    <iframe width="560" height="315"
+        src="{{ movie.trailer_url|replace:'watch?v=','embed/' }}"
+        title="YouTube trailer" frameborder="0" allowfullscreen>
+    </iframe>
+{% else %}
+    <p>No trailer available</p>
+{% endif %}
+
+<br>
 <a href="{% url 'book_ticket' movie.id %}">Book Ticket</a>
-</form>
 
 </body>
 </html>
